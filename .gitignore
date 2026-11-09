@@ -1,0 +1,23 @@
+# Python caches and local environments; ordinary .py source remains tracked.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Local editor and operating-system files.
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Research inputs and generated outputs, relative to the Git repository root.
+/Carbonate_VAE_Project/data/
+/Carbonate_VAE_Project/results/
+
+# Root-level thesis, presentation and reference documents stay local.
+/*.docx
+/*.pptx
+/*.pdf
+/~$*
