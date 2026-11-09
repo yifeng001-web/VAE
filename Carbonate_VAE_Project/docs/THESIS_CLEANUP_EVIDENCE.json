@@ -1,0 +1,1322 @@
+{
+  "paper": "E:\\lyf\\bishe\\刘一锋\\毕业论文终稿-刘一锋.docx",
+  "scope": "Same-version code and manuscript audit reused for this organized submission copy; no local CT dataset; no deletions or retraining.",
+  "code_classification": [
+    {
+      "path": "thesis_code/config.py",
+      "status": "KEEP",
+      "reason": "project paths",
+      "imports": []
+    },
+    {
+      "path": "thesis_code/diagnostics/check_env.py",
+      "status": "REVIEW",
+      "reason": "supporting evidence / illustration / alternative tool",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/diagnostics/check_standard_vae.py",
+      "status": "ARCHIVE",
+      "reason": "one-off diagnostic; no paper entry imports this",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.standard_vae"
+      ]
+    },
+    {
+      "path": "thesis_code/diagnostics/check_weight_loading.py",
+      "status": "ARCHIVE",
+      "reason": "one-off diagnostic; no paper entry imports this",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.standard_vae"
+      ]
+    },
+    {
+      "path": "thesis_code/diagnostics/diagnose_code_map.py",
+      "status": "ARCHIVE",
+      "reason": "one-off diagnostic; no paper entry imports this",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/diagnostics/diagnose_pixelcnn.py",
+      "status": "ARCHIVE",
+      "reason": "one-off diagnostic; no paper entry imports this",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/diagnostics/diagnose_vae_collapse.py",
+      "status": "ARCHIVE",
+      "reason": "one-off diagnostic; no paper entry imports this",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.manual_load_vae",
+        "thesis_code.models.standard_vae"
+      ]
+    },
+    {
+      "path": "thesis_code/diagnostics/inspect_h5.py",
+      "status": "ARCHIVE",
+      "reason": "one-off diagnostic; no paper entry imports this",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/diagnostics/inspect_legacy_vae.py",
+      "status": "ARCHIVE",
+      "reason": "one-off diagnostic; no paper entry imports this",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/diagnostics/inspect_legacy_weights.py",
+      "status": "ARCHIVE",
+      "reason": "one-off diagnostic; no paper entry imports this",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/diagnostics/inspect_vae_weight_names.py",
+      "status": "ARCHIVE",
+      "reason": "one-off diagnostic; no paper entry imports this",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.standard_vae"
+      ]
+    },
+    {
+      "path": "thesis_code/diagnostics/inspect_vqvae_weights.py",
+      "status": "ARCHIVE",
+      "reason": "one-off diagnostic; no paper entry imports this",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/evaluation/eval_one_model.py",
+      "status": "KEEP",
+      "reason": "Section 3.3.3 numeric evidence",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/evaluation/eval_physics.py",
+      "status": "REVIEW",
+      "reason": "supporting evidence / illustration / alternative tool",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model",
+        "thesis_code.utils.data_loader"
+      ]
+    },
+    {
+      "path": "thesis_code/evaluation/eval_sensitivity_models.py",
+      "status": "KEEP",
+      "reason": "Section 3.3.3 numeric evidence",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/evaluation/evaluate_thesis.py",
+      "status": "REVIEW",
+      "reason": "supporting evidence / illustration / alternative tool",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model",
+        "thesis_code.utils.data_loader"
+      ]
+    },
+    {
+      "path": "thesis_code/evaluation/verify_ablation.py",
+      "status": "REVIEW",
+      "reason": "supporting evidence / illustration / alternative tool",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/diagnose_histogram_shape.m",
+      "status": "ARCHIVE",
+      "reason": "one-off histogram diagnostic",
+      "imports": []
+    },
+    {
+      "path": "thesis_code/figure_scripts/diagrams/draw_feature_fusion_hd.py",
+      "status": "REVIEW",
+      "reason": "supporting evidence / illustration / alternative tool",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/diagrams/draw_fusion_pipeline_hd.py",
+      "status": "REVIEW",
+      "reason": "supporting evidence / illustration / alternative tool",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/diagrams/draw_original_style_pipeline.py",
+      "status": "REVIEW",
+      "reason": "supporting evidence / illustration / alternative tool",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/diagrams/draw_pipeline_flowchart.py",
+      "status": "REVIEW",
+      "reason": "supporting evidence / illustration / alternative tool",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/diagrams/draw_vqvae_architecture.py",
+      "status": "REVIEW",
+      "reason": "supporting evidence / illustration / alternative tool",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/export_for_matlab.py",
+      "status": "KEEP",
+      "reason": "Fig 3.2 export candidate",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_2_1_latent_space.py",
+      "status": "ARCHIVE",
+      "reason": "unused latent scatter layout",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_2_2_cn.py",
+      "status": "ARCHIVE",
+      "reason": "alternative contrast layout",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_2_2_histogram.m",
+      "status": "KEEP",
+      "reason": "Fig 3.2 histogram source candidate",
+      "imports": []
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_2_2_minmax_stretch.py",
+      "status": "ARCHIVE",
+      "reason": "alternative contrast layout",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_3_10_smoothing.py",
+      "status": "ARCHIVE",
+      "reason": "alternative smoothing illustration",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_3_10_tensor_mask.py",
+      "status": "KEEP",
+      "reason": "Fig 3.10 source candidate",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_3_2_contrast_stretch.m",
+      "status": "KEEP",
+      "reason": "Fig 3.2 four-panel source candidate",
+      "imports": []
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_3_3_sensitivity.py",
+      "status": "KEEP",
+      "reason": "Fig 3.5",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_3_4_loss_curves.py",
+      "status": "ARCHIVE",
+      "reason": "alternative loss layout",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_3_6_residual.py",
+      "status": "KEEP",
+      "reason": "Fig 3.6",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_3_7_loss.py",
+      "status": "KEEP",
+      "reason": "Fig 3.7",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_3_8_loss_comparison.py",
+      "status": "REVIEW",
+      "reason": "supporting evidence / illustration / alternative tool",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_3_9_3_11_combined.py",
+      "status": "KEEP",
+      "reason": "Fig 3.9; extra Fig 3.11",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.figure_scripts.figure_4_5_retrained",
+        "thesis_code.models.nanogpt",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_3_9_pixelcnn_loss.py",
+      "status": "KEEP",
+      "reason": "embedded Fig 3.8",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_3_X_sensitivity.py",
+      "status": "ARCHIVE",
+      "reason": "four-weight alternative",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_4_1_training_loss.py",
+      "status": "ARCHIVE",
+      "reason": "alternative loss layout",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_4_2_comparison.py",
+      "status": "KEEP",
+      "reason": "Fig 4.2",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.standard_vae",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_4_2_feature_learning.py",
+      "status": "ARCHIVE",
+      "reason": "alternative comparison without standard VAE",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_4_3_4_5_evaluation.py",
+      "status": "REVIEW",
+      "reason": "supporting evidence / illustration / alternative tool",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_4_5_fusion_novel_rocks.py",
+      "status": "KEEP",
+      "reason": "Fig 4.3 algorithm/layout",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_4_5_rescue_gridsearch.py",
+      "status": "ARCHIVE",
+      "reason": "prior rescue search",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_4_5_retrained.py",
+      "status": "KEEP",
+      "reason": "imported by Fig 3.9 implementation",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_4_6_diversity.py",
+      "status": "KEEP",
+      "reason": "Fig 4.4 algorithm/layout",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_4_7_ablation.py",
+      "status": "ARCHIVE",
+      "reason": "additional standalone ablation",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_ablation.py",
+      "status": "REVIEW",
+      "reason": "supporting evidence / illustration / alternative tool",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/figure_vq_schematic.py",
+      "status": "REVIEW",
+      "reason": "supporting evidence / illustration / alternative tool",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/final_evaluation_charts.py",
+      "status": "KEEP",
+      "reason": "embedded Fig 4.1; extra evaluation panels",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model",
+        "thesis_code.utils.data_loader"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/plot_training_curves.py",
+      "status": "KEEP",
+      "reason": "Fig 3.4",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/figure_scripts/run_fig_4_3_4.py",
+      "status": "REVIEW",
+      "reason": "supporting evidence / illustration / alternative tool",
+      "imports": [
+        "thesis_code.figure_scripts.figure_4_3_4_5_evaluation"
+      ]
+    },
+    {
+      "path": "thesis_code/generation/batch_generate_random_rocks.py",
+      "status": "ARCHIVE",
+      "reason": "additional batch demo",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/generation/demo_for_advisor.py",
+      "status": "ARCHIVE",
+      "reason": "advisor demo",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/generation/generate_fusion_thesis.py",
+      "status": "KEEP",
+      "reason": "continuous fusion",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/generation/generate_novel_thesis.py",
+      "status": "ARCHIVE",
+      "reason": "single-image latent mutation alternative",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model",
+        "thesis_code.utils.data_loader"
+      ]
+    },
+    {
+      "path": "thesis_code/generation/generate_unconditional_thesis.py",
+      "status": "ARCHIVE",
+      "reason": "original PixelCNN sampling alternative",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model",
+        "thesis_code.utils.data_loader"
+      ]
+    },
+    {
+      "path": "thesis_code/models/manual_load_vae.py",
+      "status": "ARCHIVE",
+      "reason": "legacy VAE weight recovery",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.standard_vae"
+      ]
+    },
+    {
+      "path": "thesis_code/models/nanogpt.py",
+      "status": "KEEP",
+      "reason": "Section 3.4.1; Fig 3.9",
+      "imports": []
+    },
+    {
+      "path": "thesis_code/models/standard_vae.py",
+      "status": "KEEP",
+      "reason": "Fig 4.2",
+      "imports": []
+    },
+    {
+      "path": "thesis_code/models/vae_model.py",
+      "status": "KEEP",
+      "reason": "core VQ-VAE",
+      "imports": []
+    },
+    {
+      "path": "thesis_code/preprocessing/extract_codes.py",
+      "status": "KEEP",
+      "reason": "prior input codes",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model"
+      ]
+    },
+    {
+      "path": "thesis_code/training/train_baseline.py",
+      "status": "KEEP",
+      "reason": "Fig 3.6 and Fig 3.7 baseline",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model",
+        "thesis_code.utils.data_loader"
+      ]
+    },
+    {
+      "path": "thesis_code/training/train_gpt_prior.py",
+      "status": "KEEP",
+      "reason": "Section 3.4.1; Fig 3.9",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.nanogpt"
+      ]
+    },
+    {
+      "path": "thesis_code/training/train_pixelcnn.py",
+      "status": "KEEP",
+      "reason": "embedded Fig 3.8 original history",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/training/train_pixelcnn_retrain.py",
+      "status": "KEEP",
+      "reason": "Fig 3.9 retrained prior",
+      "imports": [
+        "thesis_code.config"
+      ]
+    },
+    {
+      "path": "thesis_code/training/train_sensitivity.py",
+      "status": "KEEP",
+      "reason": "Fig 3.5",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model",
+        "thesis_code.utils.data_loader"
+      ]
+    },
+    {
+      "path": "thesis_code/training/train_standard_vae.py",
+      "status": "REVIEW",
+      "reason": "supporting evidence / illustration / alternative tool",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.standard_vae",
+        "thesis_code.utils.data_loader"
+      ]
+    },
+    {
+      "path": "thesis_code/training/train_standard_vae_quick.py",
+      "status": "KEEP",
+      "reason": "Fig 4.2; ep15 matches final weights",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.standard_vae"
+      ]
+    },
+    {
+      "path": "thesis_code/training/train_thesis.py",
+      "status": "KEEP",
+      "reason": "main training",
+      "imports": [
+        "thesis_code.config",
+        "thesis_code.models.vae_model",
+        "thesis_code.utils.data_loader"
+      ]
+    },
+    {
+      "path": "thesis_code/utils/data_loader.py",
+      "status": "KEEP",
+      "reason": "Section 3.1",
+      "imports": []
+    },
+    {
+      "path": "nanogpt.py",
+      "status": "KEEP",
+      "reason": "legacy serialized GPTConfig module compatibility",
+      "imports": [
+        "thesis_code.models.nanogpt"
+      ]
+    },
+    {
+      "path": "examples/mnist/mnist_vae.py",
+      "status": "ARCHIVE",
+      "reason": "MNIST teaching example",
+      "imports": []
+    },
+    {
+      "path": "notebooks/visualization.ipynb",
+      "status": "ARCHIVE",
+      "reason": "one empty code cell",
+      "imports": []
+    }
+  ],
+  "intermediate_checkpoint_candidates": [
+    {
+      "group": "GPT V1 intermediate",
+      "count": 4,
+      "bytes": 538385920,
+      "paths": [
+        "results/checkpoints/gpt_prior_ep010.pt",
+        "results/checkpoints/gpt_prior_ep020.pt",
+        "results/checkpoints/gpt_prior_ep030.pt",
+        "results/checkpoints/gpt_prior_ep040.pt"
+      ]
+    },
+    {
+      "group": "GPT V2 intermediate",
+      "count": 9,
+      "bytes": 355434720,
+      "paths": [
+        "results/checkpoints/gpt_prior_v2_ep010.pt",
+        "results/checkpoints/gpt_prior_v2_ep020.pt",
+        "results/checkpoints/gpt_prior_v2_ep030.pt",
+        "results/checkpoints/gpt_prior_v2_ep040.pt",
+        "results/checkpoints/gpt_prior_v2_ep050.pt",
+        "results/checkpoints/gpt_prior_v2_ep060.pt",
+        "results/checkpoints/gpt_prior_v2_ep070.pt",
+        "results/checkpoints/gpt_prior_v2_ep080.pt",
+        "results/checkpoints/gpt_prior_v2_ep090.pt"
+      ]
+    },
+    {
+      "group": "Standard VAE intermediate",
+      "count": 6,
+      "bytes": 524126304,
+      "paths": [
+        "results/checkpoints/standard_vae_dec_beta_ep10.weights.h5",
+        "results/checkpoints/standard_vae_dec_beta_ep15.weights.h5",
+        "results/checkpoints/standard_vae_dec_beta_ep5.weights.h5",
+        "results/checkpoints/standard_vae_enc_beta_ep10.weights.h5",
+        "results/checkpoints/standard_vae_enc_beta_ep15.weights.h5",
+        "results/checkpoints/standard_vae_enc_beta_ep5.weights.h5"
+      ]
+    },
+    {
+      "group": "Main VQ-VAE intermediate",
+      "count": 30,
+      "bytes": 24578000,
+      "paths": [
+        "results/checkpoints/decoder_ep1.weights.h5",
+        "results/checkpoints/decoder_ep10.weights.h5",
+        "results/checkpoints/decoder_ep15.weights.h5",
+        "results/checkpoints/decoder_ep20.weights.h5",
+        "results/checkpoints/decoder_ep25.weights.h5",
+        "results/checkpoints/decoder_ep30.weights.h5",
+        "results/checkpoints/decoder_ep35.weights.h5",
+        "results/checkpoints/decoder_ep40.weights.h5",
+        "results/checkpoints/decoder_ep45.weights.h5",
+        "results/checkpoints/decoder_ep5.weights.h5",
+        "results/checkpoints/encoder_ep1.weights.h5",
+        "results/checkpoints/encoder_ep10.weights.h5",
+        "results/checkpoints/encoder_ep15.weights.h5",
+        "results/checkpoints/encoder_ep20.weights.h5",
+        "results/checkpoints/encoder_ep25.weights.h5",
+        "results/checkpoints/encoder_ep30.weights.h5",
+        "results/checkpoints/encoder_ep35.weights.h5",
+        "results/checkpoints/encoder_ep40.weights.h5",
+        "results/checkpoints/encoder_ep45.weights.h5",
+        "results/checkpoints/encoder_ep5.weights.h5",
+        "results/checkpoints/vq_layer_ep1.npy",
+        "results/checkpoints/vq_layer_ep10.npy",
+        "results/checkpoints/vq_layer_ep15.npy",
+        "results/checkpoints/vq_layer_ep20.npy",
+        "results/checkpoints/vq_layer_ep25.npy",
+        "results/checkpoints/vq_layer_ep30.npy",
+        "results/checkpoints/vq_layer_ep35.npy",
+        "results/checkpoints/vq_layer_ep40.npy",
+        "results/checkpoints/vq_layer_ep45.npy",
+        "results/checkpoints/vq_layer_ep5.npy"
+      ]
+    },
+    {
+      "group": "Baseline intermediate",
+      "count": 30,
+      "bytes": 24578000,
+      "paths": [
+        "results/baseline_checkpoints/decoder_ep1.weights.h5",
+        "results/baseline_checkpoints/decoder_ep10.weights.h5",
+        "results/baseline_checkpoints/decoder_ep15.weights.h5",
+        "results/baseline_checkpoints/decoder_ep20.weights.h5",
+        "results/baseline_checkpoints/decoder_ep25.weights.h5",
+        "results/baseline_checkpoints/decoder_ep30.weights.h5",
+        "results/baseline_checkpoints/decoder_ep35.weights.h5",
+        "results/baseline_checkpoints/decoder_ep40.weights.h5",
+        "results/baseline_checkpoints/decoder_ep45.weights.h5",
+        "results/baseline_checkpoints/decoder_ep5.weights.h5",
+        "results/baseline_checkpoints/encoder_ep1.weights.h5",
+        "results/baseline_checkpoints/encoder_ep10.weights.h5",
+        "results/baseline_checkpoints/encoder_ep15.weights.h5",
+        "results/baseline_checkpoints/encoder_ep20.weights.h5",
+        "results/baseline_checkpoints/encoder_ep25.weights.h5",
+        "results/baseline_checkpoints/encoder_ep30.weights.h5",
+        "results/baseline_checkpoints/encoder_ep35.weights.h5",
+        "results/baseline_checkpoints/encoder_ep40.weights.h5",
+        "results/baseline_checkpoints/encoder_ep45.weights.h5",
+        "results/baseline_checkpoints/encoder_ep5.weights.h5",
+        "results/baseline_checkpoints/vq_layer_ep1.npy",
+        "results/baseline_checkpoints/vq_layer_ep10.npy",
+        "results/baseline_checkpoints/vq_layer_ep15.npy",
+        "results/baseline_checkpoints/vq_layer_ep20.npy",
+        "results/baseline_checkpoints/vq_layer_ep25.npy",
+        "results/baseline_checkpoints/vq_layer_ep30.npy",
+        "results/baseline_checkpoints/vq_layer_ep35.npy",
+        "results/baseline_checkpoints/vq_layer_ep40.npy",
+        "results/baseline_checkpoints/vq_layer_ep45.npy",
+        "results/baseline_checkpoints/vq_layer_ep5.npy"
+      ]
+    },
+    {
+      "group": "Sensitivity intermediate",
+      "count": 60,
+      "bytes": 49156000,
+      "paths": [
+        "results/sensitivity_checkpoints/lam_10.0/decoder_ep1.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/decoder_ep10.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/decoder_ep15.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/decoder_ep20.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/decoder_ep25.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/decoder_ep30.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/decoder_ep35.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/decoder_ep40.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/decoder_ep45.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/decoder_ep5.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/encoder_ep1.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/encoder_ep10.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/encoder_ep15.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/encoder_ep20.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/encoder_ep25.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/encoder_ep30.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/encoder_ep35.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/encoder_ep40.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/encoder_ep45.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/encoder_ep5.weights.h5",
+        "results/sensitivity_checkpoints/lam_10.0/vq_layer_ep1.npy",
+        "results/sensitivity_checkpoints/lam_10.0/vq_layer_ep10.npy",
+        "results/sensitivity_checkpoints/lam_10.0/vq_layer_ep15.npy",
+        "results/sensitivity_checkpoints/lam_10.0/vq_layer_ep20.npy",
+        "results/sensitivity_checkpoints/lam_10.0/vq_layer_ep25.npy",
+        "results/sensitivity_checkpoints/lam_10.0/vq_layer_ep30.npy",
+        "results/sensitivity_checkpoints/lam_10.0/vq_layer_ep35.npy",
+        "results/sensitivity_checkpoints/lam_10.0/vq_layer_ep40.npy",
+        "results/sensitivity_checkpoints/lam_10.0/vq_layer_ep45.npy",
+        "results/sensitivity_checkpoints/lam_10.0/vq_layer_ep5.npy",
+        "results/sensitivity_checkpoints/lam_40.0/decoder_ep1.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/decoder_ep10.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/decoder_ep15.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/decoder_ep20.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/decoder_ep25.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/decoder_ep30.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/decoder_ep35.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/decoder_ep40.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/decoder_ep45.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/decoder_ep5.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/encoder_ep1.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/encoder_ep10.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/encoder_ep15.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/encoder_ep20.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/encoder_ep25.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/encoder_ep30.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/encoder_ep35.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/encoder_ep40.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/encoder_ep45.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/encoder_ep5.weights.h5",
+        "results/sensitivity_checkpoints/lam_40.0/vq_layer_ep1.npy",
+        "results/sensitivity_checkpoints/lam_40.0/vq_layer_ep10.npy",
+        "results/sensitivity_checkpoints/lam_40.0/vq_layer_ep15.npy",
+        "results/sensitivity_checkpoints/lam_40.0/vq_layer_ep20.npy",
+        "results/sensitivity_checkpoints/lam_40.0/vq_layer_ep25.npy",
+        "results/sensitivity_checkpoints/lam_40.0/vq_layer_ep30.npy",
+        "results/sensitivity_checkpoints/lam_40.0/vq_layer_ep35.npy",
+        "results/sensitivity_checkpoints/lam_40.0/vq_layer_ep40.npy",
+        "results/sensitivity_checkpoints/lam_40.0/vq_layer_ep45.npy",
+        "results/sensitivity_checkpoints/lam_40.0/vq_layer_ep5.npy"
+      ]
+    }
+  ],
+  "candidate_bytes": 1516258944,
+  "duplicate_checkpoint_groups": [
+    [
+      "results/baseline_checkpoints/decoder.weights.h5",
+      "results/baseline_checkpoints/decoder_ep50.weights.h5"
+    ],
+    [
+      "results/sensitivity_checkpoints/lam_10.0/decoder.weights.h5",
+      "results/sensitivity_checkpoints/lam_10.0/decoder_ep50.weights.h5"
+    ],
+    [
+      "results/sensitivity_checkpoints/lam_40.0/decoder.weights.h5",
+      "results/sensitivity_checkpoints/lam_40.0/decoder_ep50.weights.h5"
+    ],
+    [
+      "results/baseline_checkpoints/encoder.weights.h5",
+      "results/baseline_checkpoints/encoder_ep50.weights.h5"
+    ],
+    [
+      "results/sensitivity_checkpoints/lam_10.0/encoder.weights.h5",
+      "results/sensitivity_checkpoints/lam_10.0/encoder_ep50.weights.h5"
+    ],
+    [
+      "results/sensitivity_checkpoints/lam_40.0/encoder.weights.h5",
+      "results/sensitivity_checkpoints/lam_40.0/encoder_ep50.weights.h5"
+    ],
+    [
+      "results/checkpoints/standard_vae_dec_beta.weights.h5",
+      "results/checkpoints/standard_vae_dec_beta_ep15.weights.h5"
+    ],
+    [
+      "results/checkpoints/standard_vae_enc_beta.weights.h5",
+      "results/checkpoints/standard_vae_enc_beta_ep15.weights.h5"
+    ],
+    [
+      "results/baseline_checkpoints/vq_layer.npy",
+      "results/baseline_checkpoints/vq_layer_ep50.npy"
+    ],
+    [
+      "results/sensitivity_checkpoints/lam_10.0/vq_layer.npy",
+      "results/sensitivity_checkpoints/lam_10.0/vq_layer_ep50.npy"
+    ],
+    [
+      "results/sensitivity_checkpoints/lam_40.0/vq_layer.npy",
+      "results/sensitivity_checkpoints/lam_40.0/vq_layer_ep50.npy"
+    ]
+  ],
+  "image_provenance": [
+    {
+      "media": "word/media/image1.jpeg",
+      "following": [
+        " 本科毕业设计（论文）",
+        "题目"
+      ],
+      "exact_matches": []
+    },
+    {
+      "media": "word/media/image2.jpeg",
+      "following": [
+        "题目",
+        "基于变分自编码器的碳酸盐岩"
+      ],
+      "exact_matches": []
+    },
+    {
+      "media": "word/media/image3.jpeg",
+      "following": [
+        "Research on the generation method of carbonate rock pore structure model based on variational auto-encoder"
+      ],
+      "exact_matches": []
+    },
+    {
+      "media": "word/media/image4.jpeg",
+      "following": [
+        "图 2.1 传统 VAE 原理图",
+        "结合图 2.1 中展示的计算流向，我们可以把 VAE 的工作流程拆解如下： 不同于普通自编码器输出确定的特征矩阵，VAE 的编码网络在看到输入图像  后，会把它映射成一个连续的概率分布。为了好方便数学计算，网通常会强制假设这个分布服从高斯正态分布 。在原理图中的编码网络实际输出的是该分布的两个统计学参数，均值  和方差的对数 。网络试图用这两个参数来框定地质特征在潜在空间中的活动范围。"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 26,
+          "path": "results/evaluation/reconstruction_comparison.png"
+        },
+        {
+          "distance": 30,
+          "path": "results/evaluation/Figure_2_2_MATLAB_histograms.png"
+        },
+        {
+          "distance": 30,
+          "path": "results/evaluation/Figure_3_10_Tensor_Mask.png"
+        }
+      ]
+    },
+    {
+      "media": "word/media/image5.png",
+      "following": [
+        "图 2.2 VQ-VAE 模型整体架构与矢量量化流程图",
+        "结合图 2.2 所示的正向特征学习流与反向梯度流，上述从连续特征提取、离散码本约束到地质特征表达的完整过程，在数学原理与算法实现上具体可拆解为以下三个核心环节："
+      ],
+      "exact_matches": []
+    },
+    {
+      "media": "word/media/image6.jpeg",
+      "following": [
+        "图 2.3 潜空间地质基元索引化与特征表示学习原理示意图",
+        "2.3 离散自回归模型的原理与局限性"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 24,
+          "path": "results/evaluation/Fig_2_1_LatentSpace.png"
+        },
+        {
+          "distance": 26,
+          "path": "results/evaluation/Figure_4_3_Porosity.png"
+        },
+        {
+          "distance": 28,
+          "path": "results/evaluation/Figure_4_4_S2_Function.png"
+        }
+      ]
+    },
+    {
+      "media": "word/media/image7.jpeg",
+      "following": [
+        "图 2.4 PixelCNN因果掩膜卷积与一维序列拓扑采样局限示意图",
+        "通过图 2.4 中的区域 a（掩膜卷积机制）与区域 b（一维序列化推演）可以看出，网络在处理空间特征时，虽然通过强制权重归零（Weight=0）保障了预测的因果性，但这种纯离散空间的序列采样在处理非均质多孔介质时，存在两处局限。"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 26,
+          "path": "results/evaluation/Figure_4_2_VAE_vs_VQVAE_Comparison.png"
+        },
+        {
+          "distance": 28,
+          "path": "results/evaluation/Figure_2_2_MATLAB_histograms.png"
+        },
+        {
+          "distance": 28,
+          "path": "results/evaluation/demo_advisor.png"
+        }
+      ]
+    },
+    {
+      "media": "word/media/image8.png",
+      "following": [
+        "图 2.5 空间掩膜的特征融合算法原理示意图",
+        "观察图 2.5 展示的双通道汇聚架构可以发现，所有的特征融合与重塑操作完全被拦截在矢量量化层（VQ层）之前的高维连续流形域内。在具体的数学实施过程中，设有两个来自不同非均质发育特征的碳酸盐岩切片供体  与  。为了防止 X 射线衰减系数的微小波动引起背景灰度的基线漂移 ，我们首先需要在像素域运行直方图匹配算法，将样本  的整体灰度平稳地对齐至样本  的分布基准上 。 "
+      ],
+      "exact_matches": []
+    },
+    {
+      "media": "word/media/image9.png",
+      "following": [
+        "图3.1原始岩心样本的多源数据获取与底层读取架构图",
+        "依托图3.1所示的这套底层逻辑，才能保障4142张碳酸盐岩切片样本能够一图不落地被模型全量消化，这为后续深度探讨复杂孔隙结构的特征表达扫清了数据残缺的隐患。"
+      ],
+      "exact_matches": []
+    },
+    {
+      "media": "word/media/image10.png",
+      "following": [
+        "原始切片图像",
+        "自适应对比度拉伸后图像"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 0,
+          "path": "results/evaluation/Figure_3_2a_original_image.png"
+        },
+        {
+          "distance": 0,
+          "path": "results/evaluation/Figure_3_2b_stretched_image.png"
+        },
+        {
+          "distance": 24,
+          "path": "results/evaluation/Figure_3_2_Discrete_Final.png"
+        }
+      ]
+    },
+    {
+      "media": "word/media/image11.png",
+      "following": [
+        "自适应对比度拉伸后图像",
+        "原始切片灰度直方图"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 0,
+          "path": "results/evaluation/Figure_3_2a_original_image.png"
+        },
+        {
+          "distance": 0,
+          "path": "results/evaluation/Figure_3_2b_stretched_image.png"
+        },
+        {
+          "distance": 24,
+          "path": "results/evaluation/Figure_3_2_Discrete_Final.png"
+        }
+      ]
+    },
+    {
+      "media": "word/media/image12.png",
+      "following": [
+        "原始切片灰度直方图",
+        "拉伸后灰度切片直方图"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 0,
+          "path": "results/evaluation/Figure_3_2c_original_histogram.png"
+        },
+        {
+          "distance": 18,
+          "path": "results/evaluation/Figure_2_2_MATLAB_hist_c.png"
+        },
+        {
+          "distance": 18,
+          "path": "results/evaluation/Figure_3_2d_stretched_histogram.png"
+        }
+      ]
+    },
+    {
+      "media": "word/media/image13.png",
+      "following": [
+        "拉伸后灰度切片直方图",
+        "图3.2碳酸盐岩数字切片自适应对比度拉伸后的视觉特征与像素分布对比"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 0,
+          "path": "results/evaluation/Figure_3_2d_stretched_histogram.png"
+        },
+        {
+          "distance": 18,
+          "path": "results/evaluation/Figure_2_2_MATLAB_hist_d.png"
+        },
+        {
+          "distance": 18,
+          "path": "results/evaluation/Figure_3_2c_original_histogram.png"
+        }
+      ]
+    },
+    {
+      "media": "word/media/image14.jpeg",
+      "following": [
+        "图3.3融合物理约束的VQ-VAE架构示意图",
+        "结合图3.3的流向图不难看出，左侧的编码器（Encoder）通过层层堆叠卷积层与残差块，将大尺寸的单通道原始切片，稳步压缩、下采样至连续的潜在特征空间中。为了从根源上缓解传统VAE动不动就后验坍塌的问题，网络在这里设置了一个由512个基底特征向量组成的离散码本拦截区。"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 24,
+          "path": "results/evaluation/Fig_2_1_LatentSpace.png"
+        },
+        {
+          "distance": 24,
+          "path": "results/evaluation/Figure_4_3_Porosity.png"
+        },
+        {
+          "distance": 26,
+          "path": "results/evaluation/Figure_4_2_Reconstruction_Comparison.png"
+        }
+      ]
+    },
+    {
+      "media": "word/media/image15.png",
+      "following": [
+        "观察图3.4的收敛曲线，训练过程可分为三个阶段：",
+        "起步阶段属于前期的快速下降期。在Adam动量机制的加速下，总损失以及各个子损失都会迅速下降。很显然，在这一阶段网络就非常有效地摸清了岩石的基质骨架以及主要的粗大孔隙轮廓。"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 0,
+          "path": "results/evaluation/training_convergence_curve.png"
+        },
+        {
+          "distance": 18,
+          "path": "results/evaluation/Figure_4_1_Training_Loss.png"
+        },
+        {
+          "distance": 22,
+          "path": "results/evaluation/Figure_3_8_Loss_Comparison.png"
+        }
+      ]
+    },
+    {
+      "media": "word/media/image16.png",
+      "following": [
+        "图3.5孔隙度惩罚权重的敏感性分析与误差变化趋势",
+        "沿着图3.5的数据上升趋势可以非常清楚地看出其中所包含的折中关系。当惩罚力度设置得比较小的时候，模型就很难被控制住，物理约束不能控制孔隙面积的收缩，重构出的图像仍然处于欠约束状态。强行把权重提高到非常激进的程度，过分强烈的体积对齐指令又会反过来严重干扰网络对图像本底特征的还原，造成整个视觉重构误差剧烈反弹。经过反复的比对推演，数据最后指向了一个精妙的平衡点，即存在一个适中的权重数值，可以使网络在画面清晰度和物理守恒之间达到很好的平衡，既稳住了全局重构误差，又把面孔率的波动控制在很低的水平上。因此，多目标优化的损失权重组合才确定下来了参数。"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 0,
+          "path": "results/evaluation/Figure_3_3_Sensitivity.png"
+        },
+        {
+          "distance": 26,
+          "path": "results/evaluation/Figure_4_5_nanoGPT_v2_Matrix.png"
+        },
+        {
+          "distance": 26,
+          "path": "results/evaluation/diff_map.png"
+        }
+      ]
+    },
+    {
+      "media": "word/media/image17.png",
+      "following": [
+        "图3.6基础模型与复合约束模型的绝对误差残差图与误差分布直方图对比",
+        "首先对图3.6上方残差的空间分布特征进行观察。热力图的映射规则是像素亮度与绝对误差成正比，纯黑的地方就是误差接近于零的地方。就客观的视觉反馈来说，不管是基础模型还是复合模型，图像内部都存在着很多浅色残差斑块。需要指出的是，本底重构误差的普遍性并不是因为算法存在缺陷所造成的，而是变分自编码器底层信息瓶颈现象造成的。网络在降维解耦的时候，会自动地过滤掉那些对于岩石宏观骨架结构贡献较小的高频随机噪声，而被舍弃的微观扰动在空间域上就形成了大面积的浅色背景残差。"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 0,
+          "path": "results/evaluation/Figure_3_6_Residual.png"
+        },
+        {
+          "distance": 18,
+          "path": "results/evaluation/figure_2_2.png"
+        },
+        {
+          "distance": 20,
+          "path": "results/evaluation/Figure_3_2d_stretched_histogram.png"
+        }
+      ]
+    },
+    {
+      "media": "word/media/image18.png",
+      "following": [
+        "从图3.7中记录到的收敛曲线可知，不加物理约束的基础模型（紫线）总损失下降趋势比较平滑，最后收敛在较低的数值上。而带有复合约束的模型（绿线）在训练后期出现了调整的幅度，最后的收敛底线也比没有复合约束的模型（红线）高一些。总损失绝对值偏高的现象，完全符合多目标神经网络优化的物理规律，基础模型一味追求损失最小化而产生的漂亮曲线，在本质上就是通过平滑甚至抹去低像素占比的微裂缝特征来换取的，必然会导致面孔率物理偏差。",
+        "复合约束模型由于受到相界面和孔隙度的双重拉扯，网络不得不在像素级还原和全局体积守恒这两个互相矛盾的目标之间来回调整。博弈造成中后期出现优化振荡，但是从前面残差矩阵的排查结果可以看出，总损失比这部分微小的数值代价要大，实际上是为了修正关键的微细裂缝，保证宏观物性不变。折中很好地控制了生成的面孔率偏差，使数字岩心重构工程的实际要求得到了满足。"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 0,
+          "path": "results/evaluation/Figure_3_7_Loss_Curves.png"
+        },
+        {
+          "distance": 16,
+          "path": "results/evaluation/Figure_3_9_PixelCNN_Loss.png"
+        },
+        {
+          "distance": 22,
+          "path": "results/evaluation/Figure_2_2_MATLAB_hist_d.png"
+        }
+      ]
+    },
+    {
+      "media": "word/media/image19.png",
+      "following": [
+        "图3.8PixelCNN与NanoGPT先验网络加权训练损失收敛曲线",
+        "尽管图表的损失曲线显示了两组先验网络最终都能正常地走向收敛，但是在后面启动模型生成推理的过程中，纯离散特征的网格化采样就暴露出了许多无法忽视的结构缺陷。从深层次来说，非自然的拼接伪影是由于先验网络自身的感受野限制和单向扫描造成的。以PixelCNN为例，即使在网络内部堆叠了多达18层的残差块，但是由于局部感受野窗口的物理尺寸所限，在捕捉长程空间上下文关联的时候仍然显得力不从心；而NanoGPT虽然有着全局自注意力的光环，但是在进行因果推理建模的时候，必须把原本是二维延展的孔隙拓扑强行展平成一根一维序列。这种极度依靠单向、一维信息流的方式，在推演那些从未出现过的复杂边界模式的时候，准确率会大打折扣，在特征数据经过解码器倒推回到像素空间之后，就会出现图3.9所示的那种阶梯状不连续的方块畸变现象[18]。"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 0,
+          "path": "results/evaluation/Figure_3_9_PixelCNN_Loss.png"
+        },
+        {
+          "distance": 16,
+          "path": "results/evaluation/Figure_3_7_Loss_Curves.png"
+        },
+        {
+          "distance": 22,
+          "path": "results/evaluation/Figure_3_8_Loss_Comparison.png"
+        }
+      ]
+    },
+    {
+      "media": "word/media/image20.png",
+      "following": [
+        "(a)Pixelcnn离散采样伪影(b)NanoGPT离散采样伪影",
+        "图3.9基于离散自回归网络生成的数字岩心及其网格拼接伪影"
+      ],
+      "exact_matches": []
+    },
+    {
+      "media": "word/media/image21.png",
+      "following": [
+        "图3.10连续特征张量提取与高斯软掩膜矩阵(M)可视化",
+        "3.4.3特征掩膜融合与图像解码重构"
+      ],
+      "exact_matches": []
+    },
+    {
+      "media": "word/media/image22.png",
+      "following": [
+        "图4.1VQ-VAE第一阶段训练损失收敛曲线图",
+        "从图4.1的走向可以看出，在训练刚开始的前15个epoch内，总损失（TotalLoss）下降得很快。这说明直通估计器（STE）是有效的，它把反向更新的梯度跨越过了那个离散化的量化层，又把它传回去了，这样网络就能在非常短的时间内快速地捕捉到碳酸盐岩的基本骨架特征。经过最初的猛烈下降之后，曲线就慢慢趋于平滑，没有像一般的生成对抗网络(GAN)那样出现剧烈的波动或者模式崩溃，整个模型具有很好的训练稳定性能。"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 0,
+          "path": "results/evaluation/loss_curves.png"
+        },
+        {
+          "distance": 22,
+          "path": "results/evaluation/Figure_3_8_Loss_Comparison.png"
+        },
+        {
+          "distance": 22,
+          "path": "results/evaluation/s2_curves.png"
+        }
+      ]
+    },
+    {
+      "media": "word/media/image23.png",
+      "following": [
+        "(a)是真实的切片，(b)是传统的VAE，(c)是VQ-VAE的重构结果",
+        "图4.2标准VAE与VQ-VAE的学习效果对比"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 0,
+          "path": "results/evaluation/Figure_4_2_VAE_vs_VQVAE_Comparison.png"
+        },
+        {
+          "distance": 24,
+          "path": "results/evaluation/Figure_4_2_Reconstruction_Comparison.png"
+        },
+        {
+          "distance": 28,
+          "path": "results/evaluation/porosity_analysis.png"
+        }
+      ]
+    },
+    {
+      "media": "word/media/image24.png",
+      "following": [
+        "=4.0是高斯参数，决定孔隙的特征尺寸。thr是覆盖率阈值，决定孔隙占比。",
+        "图4.3同一高斯参数设定下生成的全新数字岩心"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 6,
+          "path": "results/evaluation/Figure_4_5_nanoGPT_Matrix.png"
+        },
+        {
+          "distance": 20,
+          "path": "results/evaluation/Figure_4_5_Fusion_Novel_Rocks.png"
+        },
+        {
+          "distance": 22,
+          "path": "results/evaluation/fixed_sigma_batch_rocks.png"
+        }
+      ]
+    },
+    {
+      "media": "word/media/image25.png",
+      "following": [
+        "图4.4不同高斯尺度与阈值参数下的多样化生成岩心对比图",
+        "首先的控制因子就是孔隙度截断阈值thr，在随机噪声场做二值化处理的时候，决定特征划分的边界。从底层特征融合的角度看，阈值的大小会影响到融合张量里孔隙代表潜空间特征所占的比例。当系统中把该阈值调低时，模型就会释放出更多的孔隙特征空间，从而产生大面积的溶蚀孔洞或者连通网络；而当系统中把该阈值调高的时候，生成的切片就会迅速收敛，表现出孔隙稀疏、以致密基质为主的视觉特征。该参数不是凭空设定的，在具体的实践当中，它是根据目标储层测井解释得到的物性数据，或者是实验室物理岩心的孔隙度均值进行反向标定，配合筛选具有目标孔隙度范围的父本图像， 以保证生成的样本在占比上符合真实的宏观物理测量结果。"
+      ],
+      "exact_matches": [],
+      "visual_candidates": [
+        {
+          "distance": 20,
+          "path": "results/evaluation/Figure_4_5_Generated_Matrix.png"
+        },
+        {
+          "distance": 24,
+          "path": "results/evaluation/Figure_4_6_Gaussian_Diversity.png"
+        },
+        {
+          "distance": 26,
+          "path": "results/evaluation/Figure_3_2a_original_image.png"
+        }
+      ]
+    }
+  ],
+  "visual_skipped_large_images": [
+    "results/evaluation/Figure_3_11_Fusion_Comparison.png",
+    "results/evaluation/Figure_3_9_Stitching_Artifacts.png",
+    "results/evaluation/Figure_4_5_Fusion_Comparison.png",
+    "docs/figures/Feature_Fusion_HD.png",
+    "docs/figures/Figure_3_1_Architecture_HD.png",
+    "docs/figures/Figure_3_2_Fusion_Pipeline_HD.png",
+    "docs/figures/Figure_Original_Style_Pipeline_HD.png",
+    "docs/figures/VQ_VAE_Architecture_HD.png",
+    "word/media/image5.png",
+    "word/media/image8.png",
+    "word/media/image9.png",
+    "word/media/image20.png",
+    "word/media/image21.png"
+  ],
+  "project": "E:\\lyf\\bishe\\刘一锋\\Carbonate_VAE_Project",
+  "source_audit_project": "E:\\lyf\\bishe\\code\\Carbonate_VAE_Project",
+  "local_data_files": 0
+}

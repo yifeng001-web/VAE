@@ -1,0 +1,4 @@
+-r requirements.txt
+
+# Match the existing GPT experiment environment; CUDA setup is machine-specific.
+torch==2.5.1

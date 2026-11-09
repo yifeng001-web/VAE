@@ -1,0 +1,80 @@
+=== H5 key paths (top 2 levels) ===
+  GROUP: decoder
+  GROUP: decoder/dec_bn1
+  GROUP: decoder/dec_bn2
+  GROUP: decoder/dec_bn3
+  GROUP: decoder/dec_bn4
+  GROUP: decoder/dec_bn_out
+  GROUP: decoder/dec_cbam1_ca_dense1_avg
+  GROUP: decoder/dec_cbam1_ca_dense1_max
+  GROUP: decoder/dec_cbam1_ca_dense2_avg
+  GROUP: decoder/dec_cbam1_ca_dense2_max
+  GROUP: decoder/dec_cbam1_sa_conv
+  GROUP: decoder/dec_cbam2_ca_dense1_avg
+  GROUP: decoder/dec_cbam2_ca_dense1_max
+  GROUP: decoder/dec_cbam2_ca_dense2_avg
+  GROUP: decoder/dec_cbam2_ca_dense2_max
+  GROUP: decoder/dec_cbam2_sa_conv
+  GROUP: decoder/dec_cbam3_ca_dense1_avg
+  GROUP: decoder/dec_cbam3_ca_dense1_max
+  GROUP: decoder/dec_cbam3_ca_dense2_avg
+  GROUP: decoder/dec_cbam3_ca_dense2_max
+  GROUP: decoder/dec_cbam3_sa_conv
+  GROUP: decoder/dec_cbam4_ca_dense1_avg
+  GROUP: decoder/dec_cbam4_ca_dense1_max
+  GROUP: decoder/dec_cbam4_ca_dense2_avg
+  GROUP: decoder/dec_cbam4_ca_dense2_max
+  GROUP: decoder/dec_cbam4_sa_conv
+  GROUP: decoder/dec_conv1
+  GROUP: decoder/dec_conv2
+  GROUP: decoder/dec_conv3
+  GROUP: decoder/dec_conv4
+  GROUP: decoder/dec_conv_out
+  GROUP: decoder/dec_dense
+  GROUP: decoder/dec_output
+  GROUP: encoder
+  GROUP: encoder/enc_bn1
+  GROUP: encoder/enc_bn2
+  GROUP: encoder/enc_bn3
+  GROUP: encoder/enc_bn4
+  GROUP: encoder/enc_cbam1_ca_dense1_avg
+  GROUP: encoder/enc_cbam1_ca_dense1_max
+  GROUP: encoder/enc_cbam1_ca_dense2_avg
+  GROUP: encoder/enc_cbam1_ca_dense2_max
+  GROUP: encoder/enc_cbam1_sa_conv
+  GROUP: encoder/enc_cbam2_ca_dense1_avg
+  GROUP: encoder/enc_cbam2_ca_dense1_max
+  GROUP: encoder/enc_cbam2_ca_dense2_avg
+  GROUP: encoder/enc_cbam2_ca_dense2_max
+  GROUP: encoder/enc_cbam2_sa_conv
+  GROUP: encoder/enc_cbam3_ca_dense1_avg
+  GROUP: encoder/enc_cbam3_ca_dense1_max
+  GROUP: encoder/enc_cbam3_ca_dense2_avg
+  GROUP: encoder/enc_cbam3_ca_dense2_max
+  GROUP: encoder/enc_cbam3_sa_conv
+  GROUP: encoder/enc_cbam4_ca_dense1_avg
+  GROUP: encoder/enc_cbam4_ca_dense1_max
+  GROUP: encoder/enc_cbam4_ca_dense2_avg
+  GROUP: encoder/enc_cbam4_ca_dense2_max
+  GROUP: encoder/enc_cbam4_sa_conv
+  GROUP: encoder/enc_conv1
+  GROUP: encoder/enc_conv2
+  GROUP: encoder/enc_conv3
+  GROUP: encoder/enc_conv4
+  GROUP: encoder/enc_dense
+  GROUP: encoder/z_log_var
+  GROUP: encoder/z_mean
+  GROUP: top_level_model_weights
+
+=== z_mean kernel (first 5 values) ===
+Traceback (most recent call last):
+  File "E:\lyf\bishe\code\Carbonate_VAE_Project\temp_check_weights.py", line 13, in <module>
+    k = f['encoder/z_mean/z_mean/kernel:0'][:]
+  File "h5py/_objects.pyx", line 56, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 57, in h5py._objects.with_phil.wrapper
+  File "D:\lib\site-packages\h5py\_hl\group.py", line 360, in __getitem__
+    oid = h5o.open(self.id, self._e(name), lapl=self._lapl)
+  File "h5py/_objects.pyx", line 56, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 57, in h5py._objects.with_phil.wrapper
+  File "h5py/h5o.pyx", line 257, in h5py.h5o.open
+KeyError: 'Unable to synchronously open object (component not found)'

@@ -1,0 +1,447 @@
+================================================================================
+  Carbonate_VAE_Project — 完整文件清单与用途说明
+  最终模型框架: VQ-VAE + PixelCNN + Histogram-Matched Latent Fusion
+  生成日期: 2026-05-13
+================================================================================
+
+符号说明:
+  [✓ KEEP]    = 最终模型框架必需文件，不可删除
+  [? MAYBE]   = 可选保留（中间产物/历史版本），删除不影响核心功能
+  [✗ DELETE]  = 实验/废弃文件，建议删除清理
+
+================================================================================
+  一、核心代码 (thesis_code/) — 最终模型框架
+================================================================================
+
+  ── 模型定义 ──
+
+  [✓ KEEP] thesis_code/models/vae_model.py
+    用途: VQ-VAE 模型架构定义
+    包含: Encoder (256→32, 3层 Conv+Residual+LayerNorm)
+          Decoder (32→256, 3层 ConvTranspose+Residual+Sigmoid)
+          VectorQuantizer (512码本, 64维, β=0.25)
+    依赖: 所有训练/生成/评估脚本
+
+  ── 数据加载 ──
+
+  [✓ KEEP] thesis_code/utils/data_loader.py
+    用途: TIF 图像数据加载与预处理 pipeline
+    包含: decode_tif(), process_path(), create_dataset()
+    依赖: train_thesis.py
+
+  ── 训练脚本 ──
+
+  [✓ KEEP] thesis_code/train_thesis.py
+    用途: VQ-VAE 主训练脚本 (最终版)
+    功能: 五分量复合损失 (VQ+MAE+MS-SSIM+Porosity+Sobel)
+          Epoch 1-50 训练, 每5 epoch保存checkpoint
+          每epoch生成16图grid验证
+    输出: results/checkpoints/{encoder,decoder}_ep[N].weights.h5
+          results/checkpoints/vq_layer_ep[N].npy
+          results/generated_images/grid_epoch_[N].png
+
+  [✓ KEEP] thesis_code/train_pixelcnn.py
+    用途: PixelCNN 先验分布训练
+    功能: 在 VQ-VAE latent codes 上训练自回归先验
+          12层 Masked Residual Blocks, 128 hidden channels
+          频率倒数加权交叉熵损失
+    输入: results/checkpoints/latent_codes.npy
+    输出: results/checkpoints/pixelcnn.weights.h5
+
+  ── 潜码提取 ──
+
+  [✓ KEEP] thesis_code/extract_codes.py
+    用途: 使用训练好的 VQ-VAE Encoder 提取所有训练图像的潜码
+    输出: results/checkpoints/latent_codes.npy
+
+  ── 生成脚本 ──
+
+  [✓ KEEP] thesis_code/generate_fusion_thesis.py
+    用途: 直方图匹配连续潜空间融合生成 (论文核心方法)
+    功能: 选取两个不同CT切片 A/B
+          直方图匹配 B→A (消除背景色差)
+          有机云掩膜 → 在 Z_e 连续空间融合
+          VQ量化 → Decoder解码
+    输出: results/evaluation/perfect_fusion_generation.png
+
+  [✓ KEEP] thesis_code/batch_generate_random_rocks.py
+    用途: 批量随机密度数字岩心生成 (论文 Chapter 5 核心)
+    功能: 随机A/B父本对 + 随机σ∈[2,5] + 随机coverage∈[0.6,0.9]
+          16张4×4科学网格图, 标注密度等级
+    输出: results/evaluation/random_batch_rocks.png
+          results/evaluation/fixed_sigma_batch_rocks.png
+
+  [✓ KEEP] thesis_code/generate_unconditional_thesis.py
+    用途: 无条件生成 (PixelCNN 自回归采样)
+    功能: 从 PixelCNN 先验自回归采样潜码
+          温度调节 + Top-P 过滤 + 圆形掩膜
+    输出: results/evaluation/unconditional_generation.png
+
+  [✓ KEEP] thesis_code/generate_novel_thesis.py
+    用途: 新颖性生成 (基准方法, 早期做法)
+    功能: 从 PixelCNN 采样新潜码 → Decoder解码
+    输出: results/evaluation/novel_generations.png
+
+  ── 评估脚本 ──
+
+  [✓ KEEP] thesis_code/evaluate_thesis.py
+    用途: 基础评估脚本
+    功能: VQ-VAE 重建质量评估
+
+  [✓ KEEP] thesis_code/eval_physics.py
+    用途: 物理指标定量评估
+    功能: 孔隙度计算, S2两点概率函数曲线
+    输出: results/evaluation/porosity_analysis.png
+          results/evaluation/s2_curves.png
+
+  [✓ KEEP] thesis_code/final_evaluation_charts.py
+    用途: 第五章最终评估图表生成 (发表级)
+    功能: 损失曲线, 重构对比, 孔隙度分析, S2曲线, 随机批量生成
+    输出: results/evaluation/loss_curves.png
+          results/evaluation/reconstruction_comparison.png
+          results/evaluation/porosity_analysis.png
+          results/evaluation/s2_curves.png
+          results/evaluation/high_res_comparison.png
+
+  ── 演示/临时脚本 ──
+
+  [✓ KEEP] thesis_code/demo_for_advisor.py
+    用途: 导师演示用单张高质量生成
+    功能: 1×3对比图 (Real/Reconstruction/Generated)
+    输出: results/evaluation/demo_advisor.png
+
+  ── 废弃实验脚本 (可删除) ──
+
+  [✗ DELETE] thesis_code/test_sanity.py
+    用途: 早期 NaN/inf 检测 + checkerboard 修复测试
+    原因: 已被 train_thesis.py 替代, 仅用于早期调试
+
+  [✗ DELETE] thesis_code/test_topology.py
+    用途: 早期 CBAM注意力 + Otsu二值化拓扑测试
+    原因: 实验性方案, 最终模型未采用 CBAM 和 Otsu
+
+  [✗ DELETE] thesis_code/test_v6_sanity.py
+    用途: V6版本圆形掩膜维度 + MAE loss 验证
+    原因: 版本迭代中的中间测试, 最终模型已吸收其设计
+
+
+================================================================================
+  二、模型权重 (results/checkpoints/) — 训练产物
+================================================================================
+
+  ── 最终模型权重 (必需) ──
+
+  [✓ KEEP] results/checkpoints/encoder_ep50.weights.h5
+    用途: Epoch 50 Encoder 权重 (最佳模型)
+    大小: ~2.5 MB
+
+  [✓ KEEP] results/checkpoints/decoder_ep50.weights.h5
+    用途: Epoch 50 Decoder 权重 (最佳模型)
+    大小: ~3.0 MB
+
+  [✓ KEEP] results/checkpoints/vq_layer_ep50.npy
+    用途: Epoch 50 VQ 码本 (512×64)
+    大小: ~128 KB
+
+  [✓ KEEP] results/checkpoints/pixelcnn.weights.h5
+    用途: PixelCNN 先验网络最终权重
+    大小: ~15 MB
+
+  [✓ KEEP] results/checkpoints/latent_codes.npy
+    用途: 所有训练图像经 VQ-VAE 提取的潜码
+    大小: ~8 MB
+
+  ── 中间epoch权重 (可选保留/可删除) ──
+
+  [? MAYBE] results/checkpoints/encoder_ep{1,5,10,15,20,25,30,35,40,45}.weights.h5
+    用途: 各中间epoch的Encoder权重, 用于绘制损失曲线/消融实验
+    建议: 保留以支持损失曲线重绘和消融分析
+
+  [? MAYBE] results/checkpoints/decoder_ep{1,5,10,15,20,25,30,35,40,45}.weights.h5
+    用途: 各中间epoch的Decoder权重
+    建议: 同上, 保留
+
+  [? MAYBE] results/checkpoints/vq_layer_ep{1,5,10,15,20,25,30,35,40,45}.npy
+    用途: 各中间epoch的VQ码本
+    建议: 同上, 保留
+
+  [? MAYBE] results/checkpoints/encoder.weights.h5
+    用途: 可能是最终Encoder的另存版本
+    建议: 检查是否与 ep50 相同, 若相同可删除
+
+  [? MAYBE] results/checkpoints/decoder.weights.h5
+    用途: 可能是最终Decoder的另存版本
+    建议: 检查是否与 ep50 相同, 若相同可删除
+
+  [? MAYBE] results/checkpoints/vae_carbonate.weights.h5
+    用途: 可能是完整VAE模型的另存版本
+    建议: 检查是否冗余, 若 ep50 文件齐全可删除
+
+
+================================================================================
+  三、评估结果 (results/evaluation/) — 论文图表
+================================================================================
+
+  ── 第五章最终评估图表 (保留) ──
+
+  [✓ KEEP] results/evaluation/loss_curves.png
+    用途: 图5-1 VQ-VAE训练五分量损失收敛曲线
+
+  [✓ KEEP] results/evaluation/reconstruction_comparison.png
+    用途: 图5-2 高保真视觉重构对比 (Real vs Recon)
+
+  [✓ KEEP] results/evaluation/porosity_analysis.png
+    用途: 图5-3 孔隙度联合定量评估 (散点+分布)
+
+  [✓ KEEP] results/evaluation/s2_curves.png
+    用途: 图5-4 两点概率函数S2曲线对比
+
+  [✓ KEEP] results/evaluation/random_batch_rocks.png
+    用途: 图5-5 随机密度批量数字岩心生成 (σ随机)
+
+  [✓ KEEP] results/evaluation/high_res_comparison.png
+    用途: 高分辨率对比图补充
+
+  ── 其他生成结果 (保留) ──
+
+  [✓ KEEP] results/evaluation/perfect_fusion_generation.png
+    用途: 直方图匹配融合生成示例
+
+  [✓ KEEP] results/evaluation/novel_generations.png
+    用途: PixelCNN无条件新颖生成示例
+
+  [✓ KEEP] results/evaluation/unconditional_generation.png
+    用途: PixelCNN无条件生成 (带圆形掩膜)
+
+  [✓ KEEP] results/evaluation/demo_advisor.png
+    用途: 导师演示用1×3对比图
+
+  [✓ KEEP] results/evaluation/fixed_sigma_batch_rocks.png
+    用途: 固定σ=4.0批量生成 (对比实验)
+
+
+================================================================================
+  四、训练中间产物 (results/generated_images/) — 训练过程图像
+================================================================================
+
+  ── 训练过程Epoch Grid (可选择性保留最新版本) ──
+
+  [? MAYBE] results/generated_images/grid_epoch_001.png ~ grid_epoch_050.png
+    用途: 每个epoch的16图生成grid (train_thesis.py 输出)
+         用于观察训练过程中生成质量的演变
+    建议: 保留 grid_epoch_001, 010, 020, 030, 040, 050 作为里程碑
+          其余中间epoch可删除
+
+  [✗ DELETE] results/generated_images/grid_epoch001.png ~ grid_epoch050.png
+    用途: 与上组内容相同, 命名无下划线 (早期版本命名不一致)
+    原因: 重复文件, 保留 grid_epoch_[N].png 即可
+
+  ── 历史版本 Grid (可删除) ──
+
+  [✗ DELETE] results/generated_images/grid_final.png
+    用途: 某个历史版本的"最终"grid
+    原因: 已被 grid_epoch_050.png 取代
+
+  [✗ DELETE] results/generated_images/grid_final_stable.png
+    用途: "稳定版"grid
+    原因: 实验过程中的版本标记, 已被取代
+
+  [✗ DELETE] results/generated_images/grid_final_v5.png
+    用途: V5版本grid
+    原因: 早期版本, 已被取代
+
+  [✗ DELETE] results/generated_images/generated_grid.png
+    用途: 旧版生成grid
+    原因: 已被取代
+
+  [✗ DELETE] results/generated_images/generated_grid_final.png
+    用途: 旧版"最终"grid
+    原因: 已被取代
+
+  ── PixelCNN 生成结果 (可删除中间版本) ──
+
+  [✗ DELETE] results/generated_images/refined_pores_dim128_20260423_141324.png
+  [✗ DELETE] results/generated_images/refined_pores_dim128_20260501_154259.png
+  [✗ DELETE] results/generated_images/refined_pores_dim128_20260501_154351.png
+  [✗ DELETE] results/generated_images/refined_pores_dim128_20260501_154417.png
+  [✗ DELETE] results/generated_images/refined_pores_dim128_20260501_154450.png
+  [✗ DELETE] results/generated_images/refined_pores_dim128_20260503_231811.png
+  [✗ DELETE] results/generated_images/refined_pores_dim128_20260504_001624.png
+  [✗ DELETE] results/generated_images/refined_pores_dim128_20260504_120836.png
+  [✗ DELETE] results/generated_images/refined_pores_dim128_20260504_142940.png
+  [✗ DELETE] results/generated_images/refined_pores_dim128_20260504_153559.png
+  [✗ DELETE] results/generated_images/refined_pores_dim128_20260504_171000.png
+  [✗ DELETE] results/generated_images/refined_pores_dim128_20260504_201826.png
+    用途: PixelCNN dim=128 各时间戳的生成结果
+    原因: 多次实验的中间产物, 最终结果已在 evaluation/ 目录
+
+  ── 自适应生成实验 (可删除) ──
+
+  [✗ DELETE] results/generated_images/gen_adaptive_loc0p2_scale4p6_20260504_235532.png
+  [✗ DELETE] results/generated_images/gen_adaptive_loc0p2_scale4p6_20260505_111718.png
+  [✗ DELETE] results/generated_images/gen_adaptive_loc0p2_scale4p6_20260505_223326.png
+    用途: 自适应参数生成实验
+    原因: 实验中间产物
+
+  ── 其他 (可删除) ──
+
+  [✗ DELETE] results/generated_images/diagnostic_20260504_235015.png
+    用途: 诊断图像
+    原因: 临时诊断
+
+  [✗ DELETE] results/generated_images/generated_pores_dim128_20260504_233811.png
+    用途: dim=128 生成结果
+    原因: 中间产物
+
+
+================================================================================
+  五、历史版本结果 (results/plots/) — 早期损失曲线
+================================================================================
+
+  [✗ DELETE] results/plots/loss_curve.png
+  [✗ DELETE] results/plots/loss_curve_final.png
+  [✗ DELETE] results/plots/loss_curve_stable.png
+  [✗ DELETE] results/plots/loss_curve_v5.png
+  [✗ DELETE] results/plots/final_vqvae_loss_curves.png
+    用途: 各历史版本的VQ-VAE损失曲线
+    原因: 已被 results/evaluation/loss_curves.png 取代
+
+
+================================================================================
+  六、历史测试结果 (results/sanity_test/, topology_test/, v6_sanity/)
+================================================================================
+
+  [✗ DELETE] results/sanity_test/sanity_test_output.png
+    用途: test_sanity.py 输出
+    原因: 对应脚本已废弃
+
+  [✗ DELETE] results/topology_test/loss_curve_topology_test.png
+  [✗ DELETE] results/topology_test/real_samples.png
+  [✗ DELETE] results/topology_test/topology_test_16grid.png
+    用途: test_topology.py 输出 (CBAM+Otsu实验)
+    原因: 对应脚本已废弃
+
+  [✗ DELETE] results/v6_sanity/v6_sanity_check.png
+    用途: test_v6_sanity.py 输出
+    原因: 对应脚本已废弃
+
+
+================================================================================
+  七、工具脚本
+================================================================================
+
+  [? MAYBE] results/view_h5.py
+    用途: 查看 HDF5 权重文件结构的辅助脚本
+    建议: 保留作调试工具
+
+  [? MAYBE] check_env.py
+    用途: 环境检查脚本 (GPU/TensorFlow/CUDA/cuDNN)
+    建议: 保留作环境诊断工具
+
+
+================================================================================
+  八、数据文件 (data/)
+================================================================================
+
+  ── 训练数据 (必需) ──
+
+  [✓ KEEP] data/real_images/
+    用途: 碳酸盐岩CT扫描原始数据 (~200+ TIF切片, 256×256)
+    说明: 所有模型的训练和评估依赖此数据
+    注意: 数据目录下的 data/raw/CT/ 路径也在部分脚本中引用,
+          请确认实际数据存放位置并统一路径
+
+  ── 空/废弃目录 ──
+
+  [? MAYBE] data/fake_images/
+    用途: 目录存在但为空, 可能是预留给生成图像的
+    建议: 如果确认不需要可删除
+
+  [? MAYBE] data/processed/
+    用途: 目录存在但为空, 可能是预留给预处理数据
+    建议: 如果确认不需要可删除
+
+  [? MAYBE] data/raw/
+    用途: 目录存在但为空(或含CT子目录)
+    建议: 统一数据路径后清理空目录
+
+
+================================================================================
+  九、学习/参考代码 (textbook_reproduce/)
+================================================================================
+
+  [? MAYBE] textbook_reproduce/mnist_vae.py
+    用途: 教科书 MNIST VAE 复现代码 (学习用)
+    建议: 与论文项目无关, 可删除或移出项目目录
+
+  [? MAYBE] textbook_reproduce/outputs/test1.png
+    用途: MNIST VAE 输出
+    建议: 同上
+
+
+================================================================================
+  十、Jupyter Notebook
+================================================================================
+
+  [? MAYBE] notebooks/visualization.ipynb
+    用途: 可视化探索 notebook
+    建议: 保留作交互式分析工具
+
+
+================================================================================
+  十一、IDE配置
+================================================================================
+
+  [✓ KEEP] .vscode/settings.json
+    用途: VSCode 项目配置
+    建议: 保留
+
+  [✗ DELETE] envs/
+    用途: 目录存在但为空
+    建议: 删除空目录
+
+
+================================================================================
+  总结 — 按最终模型管线整理的核心文件
+================================================================================
+
+  【数据层】
+    data/real_images/                        ← 原始CT数据
+
+  【模型定义】
+    thesis_code/models/vae_model.py          ← VQ-VAE架构
+    thesis_code/utils/data_loader.py         ← 数据加载
+
+  【训练管线】
+    thesis_code/train_thesis.py              ← VQ-VAE训练
+    thesis_code/extract_codes.py             ← 潜码提取
+    thesis_code/train_pixelcnn.py            ← PixelCNN先验训练
+
+  【生成管线】
+    thesis_code/generate_fusion_thesis.py    ← 直方图匹配融合生成 (核心)
+    thesis_code/batch_generate_random_rocks.py ← 批量随机密度生成 (核心)
+    thesis_code/generate_unconditional_thesis.py ← PixelCNN无条件生成
+    thesis_code/generate_novel_thesis.py     ← 基准方法生成
+
+  【评估管线】
+    thesis_code/final_evaluation_charts.py   ← 第五章评估图表
+    thesis_code/evaluate_thesis.py           ← 基础评估
+    thesis_code/eval_physics.py              ← 物理指标评估
+
+  【模型权重】
+    results/checkpoints/encoder_ep50.weights.h5
+    results/checkpoints/decoder_ep50.weights.h5
+    results/checkpoints/vq_layer_ep50.npy
+    results/checkpoints/pixelcnn.weights.h5
+    results/checkpoints/latent_codes.npy
+
+  【论文图表输出】
+    results/evaluation/*.png                 ← 所有论文评估图表
+
+================================================================================
+  可删除文件统计:
+    脚本:  3 个 (~500行废弃实验代码)
+    图像:  30+ 个中间产物PNG (generated_images/, plots/, *_test/)
+    空目录: 2-3 个
+    预估可释放空间: ~50-100 MB
+================================================================================

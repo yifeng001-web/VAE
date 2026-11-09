@@ -1,0 +1,9 @@
+# Existing experiments use Python 3.10 and TensorFlow/Keras 2.10.
+tensorflow==2.10.0
+numpy>=1.23.5,<2
+Pillow>=9,<13
+scipy>=1.9,<1.16
+scikit-image>=0.20,<0.26
+matplotlib>=3.6,<3.11
+h5py>=3.7,<4
+tifffile>=2022.8,<2026
