@@ -20,6 +20,23 @@
 
 模型目前处理二维灰度图像。训练中命名为 `porosity_loss` 的损失计算的是平均灰度差；它与阈值分割得到的孔隙面积比例需要分别解释。
 
+## 效果展示
+
+以下图件来自已有实验输出。
+
+### 原图与重建图
+
+![真实切片与 VQ-VAE 重建对比](Carbonate_VAE_Project/results/evaluation/high_res_comparison.png)
+
+### 连续潜空间融合
+
+![不同真实切片的连续特征融合示例](Carbonate_VAE_Project/results/evaluation/perfect_fusion_generation.png)
+
+训练收敛与权重敏感性分析也随仓库提供：
+
+- [主模型训练收敛曲线](Carbonate_VAE_Project/results/evaluation/training_convergence_curve.png)
+- [孔隙度惩罚权重敏感性图](Carbonate_VAE_Project/results/evaluation/Figure_3_3_Sensitivity.png)
+
 ## 目录说明
 
 ```text
@@ -41,7 +58,7 @@
     ├── examples/mnist/               # 独立的 VAE 教学实验
     ├── notebooks/                    # 探索性笔记本
     ├── data/                         # 本地 CT 数据，不随 Git 上传
-    ├── results/                      # 本地权重和实验结果，不随 Git 上传
+    ├── results/                      # 仅上传精选图件、训练记录和最终主模型权重
     ├── nanogpt.py                    # 旧 GPT 权重的模块名兼容入口
     ├── requirements.txt              # 主流程依赖
     └── requirements-gpt.txt          # GPT 实验附加依赖
@@ -80,7 +97,7 @@ python -m pip install -r requirements-gpt.txt
 
 ### 3 准备数据与权重
 
-当前提交副本的 `data/` 目录为空，Git 仓库也不会自动提供被忽略的数据和权重。运行依赖这些资源的脚本前，需要自行准备：
+当前提交副本的 `data/` 目录为空，需要自行准备 CT 图像。仓库随附第 50 轮 VQ-VAE 的编码器、解码器和码本；标准 VAE、PixelCNN、GPT 等其他实验权重仍需另行取得或自行训练。资源放置位置如下：
 
 | 资源 | 放置位置 | 用途 |
 | --- | --- | --- |
@@ -92,7 +109,7 @@ python -m pip install -r requirements-gpt.txt
 
 主数据加载器会检查至少 4000 张 TIFF，因此使用该加载器的训练和重建入口需要满足这个数量要求。手动读取切片的融合入口不经过这一数量检查。
 
-本机副本已有 `results/` 时可以使用其中的权重；其他人克隆仓库后，需要另行取得上述文件或自行训练。本项目没有自动下载数据或权重的入口。
+克隆仓库后，随附的三份 VQ-VAE 文件已位于脚本预期的位置，合计约 2.35 MiB。推理仍需要真实 CT 输入图像；本项目没有自动下载 CT 数据或其他模型权重的入口。
 
 ### 4 生成或重建切片
 
@@ -125,6 +142,34 @@ python -m thesis_code.training.train_thesis
 ```
 
 现有默认设置是 batch size 4、训练 50 轮、码本大小 512、特征维度 64。损失包含 VQ、MAE、MS-SSIM、平均灰度差和 Sobel 边缘差。训练产生的权重、过程图和历史数组保存在 `results/` 中；参数保留在训练脚本内。
+
+## 训练参数与随附文件
+
+主模型参数以 `thesis_code/training/train_thesis.py` 和 `thesis_code/models/vae_model.py` 为准：
+
+| 参数 | 值 |
+| --- | --- |
+| 输入图像 | 256×256，单通道，逐切片 Min-Max 归一化 |
+| Batch size | 4 |
+| 训练轮次 | 50 |
+| 优化器与学习率 | Adam；初始学习率 `1e-3`，CosineDecay，`alpha=0.01` |
+| 连续特征 | 32×32×64 |
+| 码本规模 | 512 个向量，每个 64 维 |
+| 承诺损失系数 β | 0.25 |
+| 损失权重 | VQ：1；MAE：10；MS-SSIM：5；平均灰度差：20；Sobel 边缘差：10 |
+
+仓库只提供以下 9 个结果文件，合计约 4.64 MiB。它们保留原来的运行路径，不需要重命名或复制到其他目录。
+
+| 类别 | 文件 |
+| --- | --- |
+| 最终编码器 | [`encoder_ep50.weights.h5`](Carbonate_VAE_Project/results/checkpoints/encoder_ep50.weights.h5) |
+| 最终解码器 | [`decoder_ep50.weights.h5`](Carbonate_VAE_Project/results/checkpoints/decoder_ep50.weights.h5) |
+| 最终 VQ 码本 | [`vq_layer_ep50.npy`](Carbonate_VAE_Project/results/checkpoints/vq_layer_ep50.npy) |
+| 主模型训练记录 | [`training_history.npz`](Carbonate_VAE_Project/results/training_history.npz) |
+| 基线训练记录 | [`baseline_history.npz`](Carbonate_VAE_Project/results/baseline_history.npz) |
+| 代表性图件 | 上面的两张效果图、训练收敛曲线与权重敏感性图 |
+
+训练记录可用 NumPy 的 `np.load(..., allow_pickle=False)` 读取。中间 epoch 权重、其他模型、批量出图与诊断日志继续留在本地，不随普通 Git 提交。
 
 ## 其他实验怎么运行
 
@@ -161,7 +206,8 @@ python -m thesis_code.training.train_thesis
 
 - `__pycache__/`：忽略 Python 自动生成的缓存目录。
 - `*.py[cod]`：匹配 `.pyc`、`.pyo` 和 `.pyd`，不匹配普通 `.py` 源码。
-- 项目内的 `data/`、`results/`：保留在本地，避免把大量图像、中间权重和结果加入代码仓库。
+- 项目内的 `data/`：保留在本地。
+- 项目内的 `results/`：默认忽略，仅对白名单中的 4 张图、2 份训练记录和 3 份最终主模型权重开放上传。
 - 仓库根目录的 Word、PPT、PDF：论文与答辩原文件留在本地；项目 `docs/figures/` 内的 PDF 示意图仍可上传。
 
 已经被 Git 跟踪的文件不会因为新增忽略规则而自动退出版本管理。此次没有把任何 `.py` 源码加入忽略名单。

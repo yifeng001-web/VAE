@@ -12,9 +12,28 @@ venv/
 .DS_Store
 Thumbs.db
 
-# Research inputs and generated outputs, relative to the Git repository root.
+# Research inputs stay local. Publish only the selected results listed below.
 /Carbonate_VAE_Project/data/
-/Carbonate_VAE_Project/results/
+/Carbonate_VAE_Project/results/*
+
+# Small numeric histories for reproducing training plots.
+!/Carbonate_VAE_Project/results/training_history.npz
+!/Carbonate_VAE_Project/results/baseline_history.npz
+
+# Final epoch-50 VQ-VAE only; other checkpoints remain ignored.
+!/Carbonate_VAE_Project/results/checkpoints/
+/Carbonate_VAE_Project/results/checkpoints/*
+!/Carbonate_VAE_Project/results/checkpoints/encoder_ep50.weights.h5
+!/Carbonate_VAE_Project/results/checkpoints/decoder_ep50.weights.h5
+!/Carbonate_VAE_Project/results/checkpoints/vq_layer_ep50.npy
+
+# Representative images only; other evaluation outputs remain ignored.
+!/Carbonate_VAE_Project/results/evaluation/
+/Carbonate_VAE_Project/results/evaluation/*
+!/Carbonate_VAE_Project/results/evaluation/high_res_comparison.png
+!/Carbonate_VAE_Project/results/evaluation/perfect_fusion_generation.png
+!/Carbonate_VAE_Project/results/evaluation/training_convergence_curve.png
+!/Carbonate_VAE_Project/results/evaluation/Figure_3_3_Sensitivity.png
 
 # Root-level thesis, presentation and reference documents stay local.
 /*.docx
