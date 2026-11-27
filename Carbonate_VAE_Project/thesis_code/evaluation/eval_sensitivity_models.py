@@ -1,9 +1,12 @@
 """
-eval_sensitivity_models.py — 评估不同 lambda_porosity 模型的测试集 MAE 和孔隙度偏差
-==================================================================================
-读取已训练的模型权重，在测试集 (100 张切片) 上计算：
+eval_sensitivity_models.py — 抽样重构评估：MAE 和平均灰度差
+============================================================
+从与训练相同的 CT 目录抽取至多 200 张切片，未排除训练样本，
+因此结果不能作为独立测试集上的泛化成绩。计算：
   - MAE (像素重构误差)
-  - 孔隙度绝对偏差 |porosity_GT - porosity_recon|
+  - 平均灰度差 |mean(original) - mean(reconstruction)|
+为兼容已有绘图和结果文件，保留 porosity/por_dev 历史字段名；
+这些字段不表示经孔隙分割或物理测量得到的孔隙度误差。
 """
 
 import os
@@ -27,7 +30,7 @@ NUM_EMBEDDINGS = 512
 LATENT_DIM = 64
 IMAGE_SIZE = 256
 EPOCH_TO_LOAD = 50
-NUM_TEST = 200  # 测试集大小
+NUM_TEST = 200  # 历史变量名：抽样重构评估数量，不代表独立测试集
 
 
 def gather_all_tif_paths(data_dir):
@@ -73,7 +76,7 @@ def reconstruct(encoder, decoder, vq_layer, img_array):
 
 
 def evaluate_model(encoder, decoder, vq_layer, test_paths, label):
-    """在测试集上评估 MAE 和孔隙度绝对偏差."""
+    """在给定切片上评估重构 MAE 和平均灰度差。"""
     mae_list = []
     porosity_dev_list = []
 
@@ -100,7 +103,7 @@ def evaluate_model(encoder, decoder, vq_layer, test_paths, label):
 
     print(f"\n  [{label} 结果] (N={len(test_paths)})")
     print(f"    MAE                = {mae_mean:.6f} +/- {mae_std:.6f}")
-    print(f"    孔隙度绝对偏差       = {porosity_dev_mean:.6f} +/- {porosity_dev_std:.6f}")
+    print(f"    平均灰度差          = {porosity_dev_mean:.6f} +/- {porosity_dev_std:.6f}")
 
     return {
         'mae_mean': mae_mean,
@@ -111,12 +114,13 @@ def evaluate_model(encoder, decoder, vq_layer, test_paths, label):
 
 
 def main():
-    # ── 准备测试集 (固定种子 999) ──
+    # ── 抽样重构评估；未排除训练样本 (固定种子 999) ──
     all_paths = gather_all_tif_paths(DATA_DIR)
     np.random.seed(999)
     np.random.shuffle(all_paths)
     test_paths = all_paths[:NUM_TEST]
-    print(f"[INFO] 测试集: {len(test_paths)} 张切片 (固定种子 999)")
+    print(f"[INFO] 重构评估样本: {len(test_paths)} 张切片 (固定种子 999)")
+    print("[NOTE] 样本来自训练数据目录，未排除训练样本；结果不代表独立测试性能。")
 
     results = {}
 
@@ -162,7 +166,7 @@ def main():
     for lam in sorted(results.keys()):
         r = results[lam]
         print(f"  lambda={lam:5.1f}  MAE={r['mae_mean']:.6f}+/-{r['mae_std']:.6f}  "
-              f"PorDev={r['porosity_dev_mean']:.6f}+/-{r['porosity_dev_std']:.6f}")
+              f"MeanGrayDiff={r['porosity_dev_mean']:.6f}+/-{r['porosity_dev_std']:.6f}")
 
 
 if __name__ == "__main__":

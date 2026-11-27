@@ -1,6 +1,8 @@
 """
-eval_one_model.py — 单模型快速评估 (MAE + 孔隙度偏差)
+eval_one_model.py — 单模型抽样重构评估 (MAE + 平均灰度差)
 用法: python eval_one_model.py --ckpt_dir PATH --label "lambda=10"
+从训练数据目录抽取至多 200 张切片，未排除训练样本，不是独立测试。
+保留 por_dev 历史字段名，其含义为平均灰度差，不是物理孔隙度误差。
 """
 
 import os
@@ -23,7 +25,7 @@ NUM_EMBEDDINGS = 512
 LATENT_DIM = 64
 IMAGE_SIZE = 256
 EPOCH_TO_LOAD = 50
-NUM_TEST = 200
+NUM_TEST = 200  # 历史变量名：抽样重构评估数量
 
 
 def gather_all_tif_paths(data_dir):
@@ -76,7 +78,7 @@ def main():
                         help='Label for this model')
     args = parser.parse_args()
 
-    # 准备测试集 (固定种子)
+    # 抽样重构评估；未排除训练样本 (固定种子)
     all_paths = gather_all_tif_paths(DATA_DIR)
     np.random.seed(999)
     np.random.shuffle(all_paths)
@@ -88,7 +90,8 @@ def main():
     vq_path = os.path.join(args.ckpt_dir, f"vq_layer_ep{EPOCH_TO_LOAD}.npy")
     encoder, decoder, vq_layer = load_model(enc_path, dec_path, vq_path)
 
-    print(f"\n[{args.label}] 评估 {len(test_paths)} 张测试切片...")
+    print(f"\n[{args.label}] 对 {len(test_paths)} 张切片进行重构评估...")
+    print("[NOTE] 样本来自训练数据目录，未排除训练样本；结果不代表独立测试性能。")
 
     mae_list = []
     por_dev_list = []
@@ -111,7 +114,7 @@ def main():
 
     print(f"\n  [{args.label} 结果]")
     print(f"    MAE                = {mae_mean:.6f} +/- {mae_std:.6f}")
-    print(f"    孔隙度绝对偏差       = {por_dev_mean:.6f} +/- {por_dev_std:.6f}")
+    print(f"    平均灰度差          = {por_dev_mean:.6f} +/- {por_dev_std:.6f}")
 
     # 保存
     out_path = os.path.join(args.ckpt_dir, "eval_result.txt")

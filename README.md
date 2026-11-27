@@ -1,8 +1,18 @@
-# 碳酸盐岩 CT 图像重建与生成
+# 基于 VQ-VAE 的碳酸盐岩 CT 切片重构与生成
 
 这个项目用深度学习处理碳酸盐岩的二维 CT 切片，主要完成两件事：学习并重建真实岩石的灰度与孔隙结构，以及融合不同切片的潜在特征，生成新的岩石切片图像。代码用于毕业论文实验，包含 VQ-VAE 主模型、连续潜空间融合方法、标准 VAE 和自回归先验的对比实验，以及论文绘图与诊断工具。
 
 这是整个仓库的统一使用说明。主要 Python 代码位于 `Carbonate_VAE_Project/`；运行命令前，需要先进入该目录。
+
+## 个人工作
+
+在导师提供研究方向与 CT 数据的基础上，主要完成以下工作：
+
+- **数据处理与模型训练**：完成 TIFF 切片读取、256×256 单通道预处理与归一化，开展 VAE、VQ-VAE 训练和推理，调整学习率、batch size 与联合损失配置，保存权重和训练记录。
+- **连续潜空间融合**：提出在量化前的连续特征上进行软掩膜融合的思路，结合直方图匹配与掩膜参数调整，观察生成切片的边界和纹理变化。
+- **重构评估与结果整理**：结合 MAE、MS-SSIM、平均灰度差和 Sobel 边缘差分析重构表现，整理训练曲线及原图、重构图、融合图。
+
+模型与实验脚本基于已有 VAE/VQ-VAE 方法实现，开发过程中使用 AI 辅助编码与调试。
 
 ## 项目在做什么
 
@@ -35,7 +45,14 @@
 训练收敛与权重敏感性分析也随仓库提供：
 
 - [主模型训练收敛曲线](Carbonate_VAE_Project/results/evaluation/training_convergence_curve.png)
-- [孔隙度惩罚权重敏感性图](Carbonate_VAE_Project/results/evaluation/Figure_3_3_Sensitivity.png)
+- [平均灰度差约束的权重敏感性图](Carbonate_VAE_Project/results/evaluation/Figure_3_3_Sensitivity.png)（历史图件中的 `porosity` 标签按下文解释）
+
+## 实验结果如何理解
+
+- **训练记录**：`results/training_history.npz` 保存 50 轮训练指标；首页收敛图由 `figure_scripts/plot_training_curves.py` 读取该文件绘制。训练损失反映对训练数据的拟合情况。
+- **评估范围**：`eval_sensitivity_models.py` 和 `eval_one_model.py` 从与训练相同的 CT 数据目录中抽取至多 200 张切片，固定随机种子为 999；未排除训练样本。这些结果属于抽样重构评估，不能作为独立测试集上的泛化成绩。正式验证需要先按岩样或扫描体积划分互不重叠的数据，再重新训练和评估。
+- **指标含义**：代码及历史图件中的 `porosity_loss`、`por_dev` 计算的是平均灰度差，不等于经孔隙分割或物理测量得到的孔隙度误差。融合示例展示视觉效果，尚不能据此证明生成切片的物理性质。
+- **历史绘图入口**：旧版 `final_evaluation_charts.py` 的 `generate_loss_curves()` 曾使用模拟数据绘制曲线。本次将该函数改为读取真实 `training_history.npz`，并移除没有统计依据的阴影带；旧版脚本生成的曲线不能作为训练记录。本次没有重新训练模型，也没有用新图替换历史论文图件。
 
 ## 目录说明
 

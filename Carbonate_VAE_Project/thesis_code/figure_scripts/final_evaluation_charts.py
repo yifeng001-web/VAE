@@ -2,7 +2,7 @@
 [第五章 实验结果分析] 出版级全套评估图表生成脚本
 ====================================================
 生成 5 张核心图表：
-  图 5-1: loss_curves.png          — 训练收敛曲线
+  图 5-1: loss_curves.png          — 从 training_history.npz 读取的训练曲线
   图 5-2: reconstruction_comparison.png — 高保真重构对比 (2×8)
   图 5-3: porosity_analysis.png    — 孔隙度联合定量评估
   图 5-4: s2_curves.png            — 两点概率函数 S2 曲线
@@ -95,84 +95,35 @@ def load_models():
 # 任务 1：训练收敛曲线 (图 5-1)
 # ============================================================
 def generate_loss_curves():
-    """
-    生成符合 VQ-VAE 训练逻辑的平滑收敛曲线。
-    由于训练时未保存 history 数组到磁盘，此处基于论文典型 VQ-VAE 收敛行为
-    模拟一组合理的、平滑下降的数据。曲线经过指数平滑处理，符合实际训练规律。
-    """
-    print("=" * 60)
-    print("  Task 1: Training Convergence Curves (loss_curves.png)")
-    print("=" * 60)
-
-    num_epochs = 50
+    """从保存的真实训练记录绘图；子损失使用未加权的原始值。"""
+    history_path = os.path.join(PROJECT_ROOT, "results", "training_history.npz")
+    metrics = [
+        ("loss", "Total Training Loss", COLOR_LOSS),
+        ("mae", "MAE Reconstruction Loss", COLOR_MAE),
+        ("porosity", "Mean Grayscale Difference", COLOR_POROSITY),
+        ("edge", "Sobel Edge Loss", COLOR_SOBEL),
+    ]
+    with np.load(history_path, allow_pickle=False) as history:
+        curves = [np.asarray(history[key]) for key, _, _ in metrics]
+    num_epochs = curves[0].size
+    if num_epochs == 0 or any(
+        curve.ndim != 1 or curve.size != num_epochs or not np.isfinite(curve).all()
+        for curve in curves
+    ):
+        raise ValueError("Training history must contain finite, equal-length 1-D curves.")
     epochs = np.arange(1, num_epochs + 1)
+    print(f"[DATA] Loaded {num_epochs} training epochs from: {history_path}")
 
-    # 模拟真实训练曲线：前期快速下降，后期平稳收敛
-    np.random.seed(42)
-
-    def smooth_curve(start, end, noise_level, num_epochs):
-        """Generate an exponentially decaying curve with noise."""
-        t = np.linspace(0, 1, num_epochs)
-        # Exponential decay
-        curve = start + (end - start) * (1 - np.exp(-5.0 * t))
-        # Add decreasing noise
-        noise = np.random.randn(num_epochs) * noise_level * (1.0 - t * 0.8)
-        # Apply exponential moving average smoothing
-        smoothed = curve + noise
-        alpha = 0.3
-        for i in range(1, len(smoothed)):
-            smoothed[i] = alpha * smoothed[i] + (1 - alpha) * smoothed[i-1]
-        return smoothed
-
-    total_loss = smooth_curve(2.5, 0.15, 0.08, num_epochs)
-    mae_loss = smooth_curve(0.12, 0.008, 0.005, num_epochs)
-    porosity_loss = smooth_curve(0.08, 0.003, 0.004, num_epochs)
-    sobel_loss = smooth_curve(0.015, 0.0015, 0.001, num_epochs)
-
-    # Plot
     fig, axes = plt.subplots(2, 2, figsize=(14, 11))
+    for ax, (_, title, color), curve in zip(axes.flat, metrics, curves):
+        ax.plot(epochs, curve, color=color, linewidth=2.0, label=title)
+        ax.set_xlabel('Epoch', fontsize=12)
+        ax.set_ylabel('Loss Value', fontsize=12)
+        ax.set_title(title, fontsize=13, fontweight='bold')
+        ax.legend(fontsize=10)
+        ax.grid(True, alpha=0.3)
 
-    # Subplot 1: Total Loss
-    ax = axes[0, 0]
-    ax.plot(epochs, total_loss, color=COLOR_LOSS, linewidth=2.0, label='Total Loss')
-    ax.fill_between(epochs, total_loss * 0.9, total_loss * 1.1, alpha=0.15, color=COLOR_LOSS)
-    ax.set_xlabel('Epoch', fontsize=12)
-    ax.set_ylabel('Loss Value', fontsize=12)
-    ax.set_title('Total Loss', fontsize=13, fontweight='bold')
-    ax.legend(fontsize=10)
-    ax.grid(True, alpha=0.3)
-
-    # Subplot 2: MAE Loss
-    ax = axes[0, 1]
-    ax.plot(epochs, mae_loss, color=COLOR_MAE, linewidth=2.0, label='MAE Loss (x10)')
-    ax.fill_between(epochs, mae_loss * 0.9, mae_loss * 1.1, alpha=0.15, color=COLOR_MAE)
-    ax.set_xlabel('Epoch', fontsize=12)
-    ax.set_ylabel('Loss Value', fontsize=12)
-    ax.set_title('MAE Reconstruction Loss', fontsize=13, fontweight='bold')
-    ax.legend(fontsize=10)
-    ax.grid(True, alpha=0.3)
-
-    # Subplot 3: Porosity Loss
-    ax = axes[1, 0]
-    ax.plot(epochs, porosity_loss, color=COLOR_POROSITY, linewidth=2.0, label='Porosity Loss (x20)')
-    ax.fill_between(epochs, porosity_loss * 0.85, porosity_loss * 1.15, alpha=0.15, color=COLOR_POROSITY)
-    ax.set_xlabel('Epoch', fontsize=12)
-    ax.set_ylabel('Loss Value', fontsize=12)
-    ax.set_title('Porosity Preservation Loss', fontsize=13, fontweight='bold')
-    ax.legend(fontsize=10)
-    ax.grid(True, alpha=0.3)
-
-    # Subplot 4: Sobel Edge Loss
-    ax = axes[1, 1]
-    ax.plot(epochs, sobel_loss, color=COLOR_SOBEL, linewidth=2.0, label='Sobel Edge Loss (x10)')
-    ax.fill_between(epochs, sobel_loss * 0.85, sobel_loss * 1.15, alpha=0.15, color=COLOR_SOBEL)
-    ax.set_xlabel('Epoch', fontsize=12)
-    ax.set_ylabel('Loss Value', fontsize=12)
-    ax.set_title('Sobel Edge Preservation Loss', fontsize=13, fontweight='bold')
-    ax.legend(fontsize=10)
-    ax.grid(True, alpha=0.3)
-
-    plt.suptitle('VQ-VAE Training Convergence Curves (Stage 1, 50 Epochs)',
+    plt.suptitle(f'VQ-VAE Recorded Training Curves ({num_epochs} Epochs)',
                  fontsize=15, fontweight='bold', y=1.01)
     plt.tight_layout()
 
@@ -528,7 +479,7 @@ def main():
     # ── Load models once ──
     encoder, decoder, vq_layer = load_models()
 
-    # ── Task 1: Loss curves (no model needed, synthetic data) ──
+    # ── Task 1: Loss curves from the saved training history ──
     generate_loss_curves()
 
     # ── Task 2: Reconstruction comparison ──
